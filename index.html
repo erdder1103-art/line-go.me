@@ -8,7 +8,7 @@
   <title>LINE</title>
   <link rel="icon" type="image/png" href="line-favicon.png" />
 
-  <!-- 🔹 Facebook Pixel 基底碼（你的像素 ID：863212229502001） -->
+  <!-- Facebook Pixel -->
   <script>
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -25,7 +25,7 @@
     <img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=863212229502001&ev=PageView&noscript=1"/>
   </noscript>
-  <!-- 🔹 Facebook Pixel 結束 -->
+  <!-- End Facebook Pixel -->
 
   <style>
     * {
@@ -52,38 +52,37 @@
       justify-content: center;
     }
 
+    /* 用 flex column 來排版：上 LOGO / 中間內容 / 下按鈕 */
     .phone-canvas {
-      position: relative;
       width: 100%;
       max-width: 430px;
-      min-height: 932px;
-      margin: 0 auto;
+      min-height: 100vh;
       padding: 16px 16px 24px;
+      display: flex;
+      flex-direction: column;
       background-color: #ffffff;
     }
 
     /* 左上 LINE 文字 */
     .header-logo {
-      position: absolute;
-      top: 16px;
-      left: 16px;
       font-weight: 700;
       font-size: 18px;
       letter-spacing: 0.06em;
       color: #00c300;
+      margin-bottom: 40px;
+      /* 靠左就好 */
     }
 
-    /* 中間整塊 (icon + 文字) */
+    /* 中間整塊 (icon + 文字)：在剩下空間裡置中 */
     .center-block {
-      position: absolute;
-      top: 44%;
-      left: 0;
-      width: 100%;
-      transform: translateY(-35%);
+      flex: 1; /* 吃掉中間空間 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
     }
 
-    /* LOGO 圖 */
     .app-icon-img {
       width: 100px;
       height: 100px;
@@ -92,12 +91,9 @@
       margin: 0 auto;
     }
 
-    /* 文字區塊 */
     .text-block {
       margin-top: 15px;
       max-width: 260px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     .main-text-line1 {
@@ -113,13 +109,9 @@
       line-height: 1.5;
     }
 
-    /* 底部按鈕 */
+    /* 底部按鈕：用 margin-top:auto 讓它往下貼 */
     .button-block {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 84px;
-      padding: 0 16px;
+      margin-top: 40px;
     }
 
     .btn {
@@ -182,18 +174,18 @@
     </div>
   </div>
 
-  <!-- 🔹 按鈕事件綁定 + 跳轉 -->
+  <!-- 按鈕事件 + 跳轉 -->
   <script>
-    // 啟動 LINE → Contact 標準事件
+    // 啟動 LINE → Contact
     document.getElementById('btn-open-app').addEventListener('click', function () {
-      fbq('track', 'Contact');  // 按鈕點擊就算一次聯絡
-      window.location.href = 'YOUR_LINE_APP_URL';  // ← 換成你要開的連結
+      fbq('track', 'Contact');
+      window.location.href = 'YOUR_LINE_APP_URL';  // 換成你的連結
     });
 
-    // 下載 LINE → Lead 標準事件
+    // 下載 LINE → Lead
     document.getElementById('btn-download-app').addEventListener('click', function () {
-      fbq('track', 'Lead');     // 有下載意圖當 Lead
-      window.location.href = 'YOUR_LINE_DOWNLOAD_URL';  // ← 換成下載連結
+      fbq('track', 'Lead');
+      window.location.href = 'YOUR_LINE_DOWNLOAD_URL';  // 換成你的連結
     });
   </script>
 </body>
