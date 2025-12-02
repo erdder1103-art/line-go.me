@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+  <title>LINE</title>
+  <link rel="icon" type="image/png" href="line-favicon.png" />
+
+  <!-- 🔹 Facebook Pixel 基底碼（已填入你的像素 ID：863212229502001） -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src='https://connect.facebook.net/en_US/fbevents.js';
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script');
+    fbq('init', '863212229502001'); 
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=863212229502001&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- 🔹 Facebook Pixel 結束 -->
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    .wrapper {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone-canvas {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      min-height: 932px;
+      margin: 0 auto;
+      padding: 16px 16px 24px;
+      background-color: #ffffff;
+    }
+
+    .header-logo {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.06em;
+      color: #00c300;
+    }
+
+    .center-block {
+      position: absolute;
+      top: 44%;
+      left: 0;
+      width: 100%;
+      transform: translateY(-35%);
+      text-align: center;
+    }
+
+    .app-icon-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 20px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .text-block {
+      margin-top: 15px;
+      max-width: 260px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .main-text-line1 {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.5;
+      margin-bottom: 2px;
+    }
+
+    .main-text-line2 {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .button-block {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 84px;
+      padding: 0 16px;
+    }
+
+    .btn {
+      width: 100%;
+      height: 59px;
+      border-radius: 4px;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background-color: #00c300;
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      margin-top: 20px;
+      background-color: #ffffff;
+      color: #555555;
+      border: 1px solid #d5d5d5;
+    }
+
+    .btn:active {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="phone-canvas">
+
+      <div class="header-logo">LINE</div>
+
+      <div class="center-block">
+        <img src="line-center-logo.png" alt="LINE" class="app-icon-img" />
+
+        <div class="text-block">
+          <div class="main-text-line1">請啟動LINE應用程式</div>
+          <div class="main-text-line2">繼續執行步驟。</div>
+        </div>
+      </div>
+
+      <div class="button-block">
+        <button class="btn btn-primary" id="btn-open-app">
+          啟動LINE應用程式
+        </button>
+        <button class="btn btn-secondary" id="btn-download-app">
+          下載LINE應用程式
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 🔹 按鈕事件綁定 ＋ 跳轉功能 -->
+  <script>
+    // 啟動 LINE
+    document.getElementById('btn-open-app').addEventListener('click', function () {
+      fbq('trackCustom', 'ClickOpenLine'); // 自訂事件
+      window.location.href = 'https://line.me/R/ti/p/@794qnnum'; // ← 改成你的
+    });
+
+    // 下載 LINE
+    document.getElementById('btn-download-app').addEventListener('click', function () {
+      fbq('trackCustom', 'ClickDownloadLine');
+      window.location.href = 'https://line.me/R/ti/p/@794qnnum'; // ← 改成你的
+    });
+  </script>
+</body>
+</html>
