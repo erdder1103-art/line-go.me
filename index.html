@@ -5,7 +5,7 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-  <title>加 LINE 領優惠</title>
+  <title>島灰-加 LINE 領優惠</title>
   <link rel="icon" type="image/png" href="images/favicon.png" />
 
   <!-- Facebook Pixel：1348416110357399 -->
@@ -85,7 +85,6 @@
       margin: 0 auto 32px auto;
     }
 
-    /* 🔥 按鈕圖片版本 */
     .cta-btn-img {
       width: 260px;
       max-width: 86vw;
@@ -110,22 +109,23 @@
              alt="活動 LOGO"
              class="logo-img" />
 
-        <!-- 🔥 按鈕圖片版本 -->
-        <img src="images/image.png"
-             id="cta-btn"
-             alt="加 LINE 領優惠"
-             class="cta-btn-img" />
+        <!-- 🔥 按鈕圖片版本（已修改為 Worker URL） -->
+        <a href="https://yellow-lake-5e5a.skype138388.workers.dev/?utm_source=meta&utm_campaign=linelead">
+            <img src="images/image.png"
+                alt="加 LINE 領優惠"
+                class="cta-btn-img" />
+        </a>
 
       </div>
     </div>
   </div>
 
   <script>
-    // 按鈕點擊：Lead + 跳轉
-    document.getElementById('cta-btn').addEventListener('click', function () {
-      try { fbq('track', 'Lead'); } catch(e) {}
+    // Pixel Lead（用戶點擊才送）
+    const btn = document.querySelector('.cta-btn-img');
 
-      window.location.href = "https://line.me/R/ti/p/@794qnnum";
+    btn.addEventListener('click', function () {
+      try { fbq('track', 'Lead'); } catch (e) { }
     });
   </script>
 
