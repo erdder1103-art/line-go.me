@@ -5,30 +5,29 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-  <!-- ⭐ FB 網域驗證（BM 要求這一行） -->
+  <!-- FB 網域驗證 -->
   <meta name="facebook-domain-verification" content="07vrb8yz8hjffwmk8jquktrrnkn394" />
 
   <title>島灰-加 LINE 領優惠</title>
   <link rel="icon" type="image/png" href="images/favicon.png" />
 
- <!-- Facebook Pixel：1348416110357399 -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src='https://connect.facebook.net/en_US/fbevents.js';
-    s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window,document,'script');
-  fbq('init', '1348416110357399');
-  fbq('track', 'PageView');
-</script>
-<noscript>
-  <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1348416110357399&ev=PageView&noscript=1"/>
-</noscript>
-
+  <!-- Facebook Pixel：1348416110357399 -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src='https://connect.facebook.net/en_US/fbevents.js';
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script');
+    fbq('init', '1348416110357399');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=1348416110357399&ev=PageView&noscript=1"/>
+  </noscript>
 
   <style>
     * {
@@ -82,13 +81,14 @@
     }
 
     .logo-img {
-      width: 220px;
+      width: 420px;
       max-width: 80vw;
       height: auto;
       display: block;
       margin: 0 auto 32px auto;
     }
 
+    /* === 按鈕本體 === */
     .cta-btn-img {
       width: 260px;
       max-width: 86vw;
@@ -96,10 +96,57 @@
       display: block;
       cursor: pointer;
       transition: transform 0.08s ease;
+      border-radius: 999px;
+      position: relative;
+      z-index: 2;  /* 一定要在光暈之上 */
     }
 
     .cta-btn-img:active {
       transform: scale(0.97);
+    }
+
+    /* === LED 光暈容器 === */
+    .cta-wrap {
+      position: relative;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    /* === LED 背光：固定不動，只做顏色 hue-rotate 連續變化 === */
+    .cta-led {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 115%;   /* 光暈寬度（比按鈕略大一點） */
+      height: 140%;  /* 光暈高度 */
+      transform: translate(-50%, -50%);
+      border-radius: 999px;
+
+      /* 固定的彩色漸層，形狀不會轉動 */
+      background: radial-gradient(
+        ellipse at center,
+        #00ffcc 0%,
+        #00ff00 30%,
+        #00aaff 55%,
+        #aa00ff 80%,
+        #000000 100%
+      );
+
+      /* 模糊 + 色相旋轉動畫 */
+      opacity: 0.85;
+      filter: blur(12px) hue-rotate(0deg);
+      animation: ledHue 6s linear infinite;
+      z-index: 1;
+    }
+
+    /* 色相連續旋轉：0deg → 360deg，循環時不會跳色 */
+    @keyframes ledHue {
+      from {
+        filter: blur(12px) hue-rotate(0deg);
+      }
+      to {
+        filter: blur(12px) hue-rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -113,21 +160,24 @@
              alt="活動 LOGO"
              class="logo-img" />
 
-        <!-- 🔥 CTA：導到 Cloudflare Worker（Worker 那邊送 CAPI + 轉跳 LINE） -->
-        <a href="https://yellow-lake-5e5a.skype138388.workers.dev/?utm_source=meta&utm_campaign=linelead">
-          <img src="images/image.png"
-               alt="加 LINE 領優惠"
-               class="cta-btn-img" />
-        </a>
+        <!-- CTA + LED 光暈 -->
+        <div class="cta-wrap">
+          <div class="cta-led"></div>
+
+          <a href="https://yellow-lake-5e5a.skype138388.workers.dev/?utm_source=meta&utm_campaign=linelead">
+            <img src="images/image.png"
+                 alt="加 LINE 領優惠"
+                 class="cta-btn-img" />
+          </a>
+        </div>
 
       </div>
     </div>
   </div>
 
   <script>
-    // Pixel Lead：使用者點到按鈕才送 Lead（瀏覽器端）
+    // 點按鈕送 Lead
     const btn = document.querySelector('.cta-btn-img');
-
     btn.addEventListener('click', function () {
       try { fbq('track', 'Lead'); } catch (e) {}
     });
@@ -135,4 +185,3 @@
 
 </body>
 </html>
-
