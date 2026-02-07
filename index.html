@@ -1,0 +1,139 @@
+﻿<!doctype html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>灰胖落空-1:130合法娛樂城</title>
+
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body{
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Microsoft JhengHei", sans-serif;
+
+      /* 背景滿版 */
+      background: url("static/image/bg.jpg") center / cover no-repeat;
+    }
+
+    /* ✅ 讓整組內容置中，但避免首屏被撐爆 */
+    .stage{
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      padding-top: calc(12px + env(safe-area-inset-top));
+      padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+
+    /* ✅ 手機寬度容器 */
+    .wrap{
+      width: 100%;
+      max-width: 480px;
+      display: grid;
+      gap: 14px;
+    }
+
+    /* 主視覺 */
+    .hero{
+      width: 100%;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.25);
+    }
+
+    /* ✅ 核心修正：限制首圖高度，確保 CTA 露出 */
+    .hero img{
+      width: 100%;
+      display: block;
+
+      /* 讓圖片在手機不要把畫面撐滿 */
+      max-height: 68vh;          /* 你可改 65~75vh */
+      height: 68vh;              /* 搭配 object-fit 才會生效 */
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* 桌機/平板：不要裁切太多，恢復自適應高度 */
+    @media (min-width: 769px){
+      .hero img{
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+      }
+    }
+
+    /* ✅ 按鈕圖（你自己的按鈕圖片） */
+    .btnImg{
+      display: block;
+      width: 78%;
+      max-width: 320px;
+      margin: 0 auto;
+      border-radius: 18px;
+      box-shadow: 0 12px 26px rgba(0,0,0,0.22);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btnImg:active{
+      transform: translateY(1px);
+    }
+  </style>
+
+  <!-- Meta Pixel Code (ID: 839080675810591) -->
+  <script>
+    !function(f,b,e,v,n,t,s){
+      if(f.fbq) return;
+      n=f.fbq=function(){ n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments) };
+      if(!f._fbq) f._fbq=n;
+      n.push=n; n.loaded=!0; n.version='2.0';
+      n.queue=[];
+      t=b.createElement(e); t.async=!0;
+      t.src=v;
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s);
+    }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '839080675810591');
+    fbq('track', 'PageView');
+  </script>
+
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=839080675810591&ev=PageView&noscript=1" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+
+<body>
+  <div class="stage">
+    <main class="wrap">
+
+      <!-- 圖1 -->
+      <section class="hero">
+        <img src="static/picture/10月9日19-1024x1024.png" alt="" loading="eager" decoding="async">
+      </section>
+
+      <!-- ✅ LINE -->
+      <a href="https://line.me/R/ti/p/@h1788"
+         onclick="trackLead();">
+        <img class="btnImg" src="static/picture/10月9日14-e1760416892526-1024x303.png" alt="加LINE領優惠" loading="eager" decoding="async">
+      </a>
+
+    </main>
+  </div>
+
+  <script>
+    function trackLead() {
+      try {
+        if (typeof fbq === "function") {
+          fbq("track", "Lead");
+        }
+      } catch(err) {}
+    }
+  </script>
+</body>
+</html>
