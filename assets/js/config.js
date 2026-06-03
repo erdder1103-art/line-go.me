@@ -1,0 +1,6 @@
+window.LANDING_CONFIG = {
+  PIXEL_ID: '787960040834696',
+  LINE_URL: 'https://line.me/R/ti/p/@794qnnum',
+  CLICK_DELAY_MS: 3000,
+  LOADING_SECONDS: 3
+};

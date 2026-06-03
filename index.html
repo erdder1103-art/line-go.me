@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no">
+  <title>橙總派對</title>
+  <meta name="description" content="官方頁面入口，點擊即可前往官方聯絡頁。">
+  <link rel="preload" as="image" href="assets/images/logo-placeholder.png">
+  <link rel="preload" as="image" href="assets/images/ip-placeholder.png">
+  <link rel="preload" as="image" href="assets/images/button-placeholder.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/config.js"></script>
+  <script>
+    (function () {
+      var pixelId = (window.LANDING_CONFIG && window.LANDING_CONFIG.PIXEL_ID) || 'YOUR_PIXEL_ID';
+      if (!pixelId || pixelId === 'YOUR_PIXEL_ID') return;
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', pixelId);
+      fbq('track', 'PageView');
+    })();
+  </script>
+</head>
+<body>
+  <main class="page-shell" aria-label="官方頁面入口網站">
+    <section class="screen loading-screen" aria-label="正在開啟頁面">
+      <div class="loading-card">
+        <button class="logo-box image-action" type="button" data-track-button data-track-name="logo-loading" aria-label="前往官方頁面">
+          <img src="assets/images/logo-placeholder.png" alt="LOGO">
+        </button>
+        <div class="progress-ring" aria-hidden="true">
+          <strong data-countdown-number>3</strong>
+        </div>
+        <h1 class="loading-title">正在開啟頁面</h1>
+        <p class="loading-subtitle" data-countdown-text>請稍候，系統將於 3 秒後進入。</p>
+        <div class="loading-bar" aria-hidden="true"><span></span></div>
+        <p class="loading-note">安全連線中，請勿關閉視窗</p>
+      </div>
+    </section>
+
+    <section class="screen landing-screen is-hidden" aria-hidden="true" aria-label="落地頁內容">
+      <div class="landing-inner">
+        <header class="top-card">
+          <button class="logo-box image-action" type="button" data-track-button data-track-name="logo-landing" aria-label="前往官方頁面">
+            <img src="assets/images/logo-placeholder.png" alt="LOGO">
+          </button>
+          <span class="kicker">官方LINE‧優惠專屬入口</span>
+          <h2 class="title">立即開啟 <span class="gold">官方頁面</span></h2>
+          <p class="subtitle">掌握最新活動、專屬通知與快速客服，一次完成。</p>
+        </header>
+
+        <section class="hero-card" aria-label="IP 主視覺">
+          <button class="hero-frame image-action" type="button" data-track-button data-track-name="ip-image" aria-label="前往官方頁面">
+            <img src="assets/images/ip-placeholder.png" alt="IP 主視覺">
+          </button>
+        </section>
+
+        <section class="cta-wrap" aria-label="前往官方頁面按鈕">
+          <button class="cta-button image-action" type="button" data-track-button data-track-name="main-button" aria-label="前往官方頁面">
+            <img src="assets/images/button-placeholder.png" alt="前往官方頁面">
+          </button>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
