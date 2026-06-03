@@ -509,3 +509,12 @@ body {
   opacity: .72;
   pointer-events: none;
 }
+.cta-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.secondary-button {
+  margin-top: 0;
+}

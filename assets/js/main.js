@@ -1,8 +1,7 @@
 (function () {
   var config = window.LANDING_CONFIG || {};
 
-  var pixelId = config.PIXEL_ID || '787960040834696';
-  var lineUrl = config.LINE_URL || 'https://line.me/R/ti/p/@794qnnum';
+  var defaultUrl = config.LINE_URL || 'https://line.me/R/ti/p/@794qnnum';
   var clickDelay = Number(config.CLICK_DELAY_MS || 3000);
   var loadingSeconds = Number(config.LOADING_SECONDS || 3);
 
@@ -16,7 +15,7 @@
     return eventName + '_' + buttonName + '_' + Date.now();
   }
 
-  function sendPixelEvents(buttonName) {
+  function sendPixelEvents(buttonName, targetUrl) {
     if (typeof window.fbq !== 'function') {
       console.warn('[Pixel] fbq 尚未載入，事件沒有送出');
       return false;
@@ -30,8 +29,7 @@
     window.fbq('track', 'Lead', {
       content_name: buttonName,
       content_category: 'landing_page',
-      destination: 'official_line',
-      line_url: lineUrl
+      destination: targetUrl
     }, {
       eventID: leadEventId
     });
@@ -41,8 +39,7 @@
     window.fbq('track', 'Contact', {
       content_name: buttonName,
       content_category: 'landing_page',
-      destination: 'official_line',
-      line_url: lineUrl
+      destination: targetUrl
     }, {
       eventID: contactEventId
     });
@@ -69,15 +66,16 @@
     }
 
     var buttonName = button.getAttribute('data-track-name') || 'landing-click';
+    var targetUrl = button.getAttribute('data-link-url') || defaultUrl;
 
     button.classList.add('is-sending');
 
-    sendPixelEvents(buttonName);
+    sendPixelEvents(buttonName, targetUrl);
 
-    console.log('[Redirect] ' + clickDelay + 'ms 後跳轉:', lineUrl);
+    console.log('[Redirect] ' + clickDelay + 'ms 後跳轉:', targetUrl);
 
     setTimeout(function () {
-      window.location.href = lineUrl;
+      window.location.href = targetUrl;
     }, clickDelay);
   }
 
