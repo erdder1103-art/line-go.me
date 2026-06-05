@@ -1,76 +1,231 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="format-detection" content="telephone=no">
-  <title>灰胖落空-小胖&島灰</title>
-  <meta name="description" content="官方頁面入口，點擊即可前往官方聯絡頁。">
-  <link rel="preload" as="image" href="assets/images/logo-placeholder.png">
-  <link rel="preload" as="image" href="assets/images/ip-placeholder.png">
-  <link rel="preload" as="image" href="assets/images/button-placeholder.png">
-  <link rel="preload" as="image" href="assets/images/button-placeholder2.png">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <script src="assets/js/config.js"></script>
-  <script>
-    (function () {
-      var pixelId = (window.LANDING_CONFIG && window.LANDING_CONFIG.PIXEL_ID) || 'YOUR_PIXEL_ID';
-      if (!pixelId || pixelId === 'YOUR_PIXEL_ID') return;
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', pixelId);
-      fbq('track', 'PageView');
-    })();
-  </script>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>灰胖落空</title>
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){
+  if(f.fbq)return;
+  n=f.fbq=function(){
+    n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)
+  };
+  if(!f._fbq)f._fbq=n;
+  n.push=n;
+  n.loaded=!0;
+  n.version='2.0';
+  n.queue=[];
+  t=b.createElement(e);
+  t.async=!0;
+  t.src=v;
+  s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s);
+}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init','787960040834696');
+fbq('track','PageView');
+</script>
+
+<noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=787960040834696&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  background:#000;
+  font-family:system-ui,-apple-system,"PingFang TC","Noto Sans TC",Arial,sans-serif;
+}
+
+.wrapper{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  min-height:100svh;
+  background:#000;
+}
+
+.frame{
+  position:relative;
+  width:100%;
+  max-width:420px;
+  aspect-ratio:9/16;
+  overflow:hidden;
+  background:#000;
+}
+
+.bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:1;
+  pointer-events:none;
+}
+
+.logo{
+  position:absolute;
+  top:-5%;
+  left:50%;
+  transform:translateX(-50%);
+  width:60%;
+  z-index:2;
+  pointer-events:none;
+}
+
+.ip{
+  position:absolute;
+  bottom:12%;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  z-index:2;
+  pointer-events:none;
+}
+
+.btnWrapper{
+  position:absolute;
+  bottom:6%;
+  left:50%;
+  transform:translateX(-50%);
+  width:80%;
+  z-index:10;
+}
+
+.goLine{
+  display:block;
+  width:100%;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  text-decoration:none;
+}
+
+.btn{
+  display:block;
+  width:100%;
+  height:auto;
+  cursor:pointer;
+  animation:breath 1.8s ease-in-out infinite;
+  will-change:transform;
+}
+
+@keyframes breath{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+  100%{transform:scale(1);}
+}
+</style>
 </head>
+
 <body>
-  <main class="page-shell" aria-label="官方頁面入口網站">
-    <section class="screen loading-screen" aria-label="正在開啟頁面">
-      <div class="loading-card">
-        <button class="logo-box image-action" type="button" data-track-button data-track-name="logo-loading" data-link-url="https://line.me/R/ti/p/@794qnnum" aria-label="前往官方頁面">
-          <img src="assets/images/logo-placeholder.png" alt="LOGO">
-        </button>
-        <div class="progress-ring" aria-hidden="true">
-          <strong data-countdown-number>3</strong>
-        </div>
-        <h1 class="loading-title">正在開啟頁面</h1>
-        <p class="loading-subtitle" data-countdown-text>請稍候，系統將於 3 秒後進入。</p>
-        <div class="loading-bar" aria-hidden="true"><span></span></div>
-        <p class="loading-note">安全連線中，請勿關閉視窗</p>
-      </div>
-    </section>
+<div class="wrapper">
+  <div class="frame">
+    <img src="assets/bg.jpg" class="bg" alt="" loading="eager" decoding="async">
+    <img src="assets/logo.png" class="logo" alt="" loading="eager" decoding="async">
+    <img src="assets/ip.png" class="ip" alt="" loading="eager" decoding="async">
 
-    <section class="screen landing-screen is-hidden" aria-hidden="true" aria-label="落地頁內容">
-      <div class="landing-inner">
-        <header class="top-card">
-          <button class="logo-box image-action" type="button" data-track-button data-track-name="logo-landing" data-link-url="https://line.me/R/ti/p/@794qnnum" aria-label="前往官方頁面">
-            <img src="assets/images/logo-placeholder.png" alt="LOGO">
-          </button>
-          <span class="kicker">官方LINE‧優惠專屬入口</span>
-          <h2 class="title">立即開啟 <span class="gold">官方頁面</span></h2>
-          <p class="subtitle">掌握最新活動、專屬通知與快速服務，一次完成。</p>
-        </header>
+    <!-- 只有真正按鈕 Btn 可以點擊 -->
+    <div class="btnWrapper">
+      <a href="https://line.me/R/ti/p/@794qnnum"
+         class="goLine"
+         data-area="btn"
+         rel="noopener"
+         aria-label="加入 LINE">
+        <img src="assets/btn.png" class="btn" alt="加入 LINE" loading="eager" decoding="async">
+      </a>
+    </div>
+  </div>
+</div>
 
-        <section class="hero-card" aria-label="IP 主視覺">
-          <button class="hero-frame image-action" type="button" data-track-button data-track-name="ip-image" data-link-url="https://line.me/R/ti/p/@794qnnum" aria-label="前往官方頁面">
-            <img src="assets/images/ip-placeholder.png" alt="IP 主視覺">
-          </button>
-        </section>
+<script>
+(function(){
+  const LINE_URL = "https://line.me/R/ti/p/@794qnnum";
+  const PIXEL_ID = "787960040834696";
+  const REDIRECT_DELAY = 900;
 
-        <section class="cta-wrap" aria-label="前往官方頁面按鈕">
-          <button class="cta-button image-action" type="button" data-track-button data-track-name="line-button" data-link-url="https://line.me/R/ti/p/@794qnnum" aria-label="前往官方LINE">
-            <img src="assets/images/button-placeholder.png" alt="前往官方LINE">
-          </button>
+  let clicked = false;
 
-          <button class="cta-button image-action secondary-button" type="button" data-track-button data-track-name="twitch-button" data-link-url="https://twitch.tv/douhua5269" aria-label="前往Twitch">
-            <img src="assets/images/button-placeholder2.png" alt="前往Twitch">
-          </button>
-        </section>
-      </div>
-    </section>
-  </main>
-  <script src="assets/js/main.js"></script>
+  function uuidv4(){
+    if(window.crypto && typeof window.crypto.randomUUID === "function"){
+      return window.crypto.randomUUID();
+    }
+
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){
+      var r = Math.random() * 16 | 0;
+      var v = c === "x" ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
+  function firePixelEvents(area){
+    if(typeof fbq !== "function") return;
+
+    const commonParams = {
+      action_source: "website",
+      contact_method: "line",
+      click_area: area || "btn",
+      event_source_url: window.location.href
+    };
+
+    try{
+      fbq(
+        "trackSingle",
+        PIXEL_ID,
+        "Lead",
+        commonParams,
+        {eventID: uuidv4()}
+      );
+    }catch(e){}
+
+    try{
+      fbq(
+        "trackSingle",
+        PIXEL_ID,
+        "Contact",
+        commonParams,
+        {eventID: uuidv4()}
+      );
+    }catch(e){}
+  }
+
+  function goLine(){
+    window.location.href = LINE_URL;
+  }
+
+  const btn = document.querySelector(".goLine");
+
+  if(btn){
+    btn.addEventListener("click", function(e){
+      e.preventDefault();
+
+      if(clicked) return;
+      clicked = true;
+
+      const area = btn.getAttribute("data-area") || "btn";
+
+      firePixelEvents(area);
+
+      setTimeout(goLine, REDIRECT_DELAY);
+    }, {passive:false});
+  }
+
+  window.addEventListener("pageshow", function(){
+    clicked = false;
+  });
+})();
+</script>
 </body>
 </html>
