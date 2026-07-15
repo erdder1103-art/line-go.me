@@ -24,13 +24,13 @@
   s.parentNode.insertBefore(t,s);
 }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-fbq('init','1998632441014316');
+fbq('init','1016327494089219');
 fbq('track','PageView');
 </script>
 
 <noscript>
   <img height="1" width="1" style="display:none"
-       src="https://www.facebook.com/tr?id=1998632441014316&ev=PageView&noscript=1"/>
+       src="https://www.facebook.com/tr?id=1016327494089219&ev=PageView&noscript=1"/>
 </noscript>
 <!-- End Meta Pixel Code -->
 
@@ -152,79 +152,114 @@ html,body{
 
 <script>
 (function(){
+  const PIXEL_ID = "1016327494089219";
   const LINE_URL = "https://line.me/R/ti/p/@794qnnum";
-  const PIXEL_ID = "1998632441014316";
-  const REDIRECT_DELAY = 900;
+  // 建立此品牌專屬 Worker 後，只需把下方網址替換成實際 workers.dev 網址，保留 /track
+  const CAPI_ENDPOINT = "https://linegomecom.skype138388.workers.dev/track";
+  const EVENT_NAME = "CompleteRegistration";
+  const REDIRECT_DELAY_MS = 1800;
 
   let clicked = false;
 
-  function uuidv4(){
+  function createEventId(){
     if(window.crypto && typeof window.crypto.randomUUID === "function"){
-      return window.crypto.randomUUID();
+      return "reg_" + window.crypto.randomUUID();
+    }
+    return "reg_" + Date.now() + "_" + Math.random().toString(36).slice(2,12);
+  }
+
+  function getCookie(name){
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const match = document.cookie.match(new RegExp("(?:^|;\\s*)" + escaped + "=([^;]*)"));
+    return match ? decodeURIComponent(match[1]) : "";
+  }
+
+  function getFbc(){
+    const cookie = getCookie("_fbc");
+    if(cookie) return cookie;
+    const fbclid = new URLSearchParams(location.search).get("fbclid");
+    return fbclid ? "fb.1." + Date.now() + "." + fbclid : "";
+  }
+
+  function fireBrowserEvent(eventId, area){
+    if(typeof window.fbq !== "function") return;
+    window.fbq(
+      "trackSingle",
+      PIXEL_ID,
+      EVENT_NAME,
+      {contact_method:"line", click_area:area},
+      {eventID:eventId}
+    );
+  }
+
+  async function fireServerEvent(eventId, area){
+    if(CAPI_ENDPOINT.includes("YOUR-WORKER")){
+      throw new Error("請先設定 CAPI_ENDPOINT");
     }
 
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){
-      var r = Math.random() * 16 | 0;
-      var v = c === "x" ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
-
-  function firePixelEvents(area){
-    if(typeof fbq !== "function") return;
-
-    const commonParams = {
-      action_source: "website",
-      contact_method: "line",
-      click_area: area || "btn",
-      event_source_url: window.location.href
+    const payload = {
+      event_name: EVENT_NAME,
+      event_id: eventId,
+      event_source_url: location.href,
+      fbp: getCookie("_fbp"),
+      fbc: getFbc(),
+      click_area: area
     };
 
-    try{
-      fbq(
-        "trackSingle",
-        PIXEL_ID,
-        "Lead",
-        commonParams,
-        {eventID: uuidv4()}
-      );
-    }catch(e){}
+    const response = await fetch(CAPI_ENDPOINT, {
+      method: "POST",
+      mode: "cors",
+      credentials: "omit",
+      cache: "no-store",
+      keepalive: true,
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(payload)
+    });
 
-    try{
-      fbq(
-        "trackSingle",
-        PIXEL_ID,
-        "Contact",
-        commonParams,
-        {eventID: uuidv4()}
-      );
-    }catch(e){}
+    const text = await response.text();
+    let result;
+    try { result = JSON.parse(text); }
+    catch { result = {ok:false,error:"Worker 回應不是 JSON",raw:text}; }
+
+    if(!response.ok || !result.ok){
+      throw new Error(result.error || result.meta_error?.error?.message || "CAPI 送出失敗");
+    }
+    return result;
   }
 
-  function goLine(){
-    window.location.href = LINE_URL;
-  }
+  function goLine(){ location.assign(LINE_URL); }
 
-  const btn = document.querySelector(".goLine");
-
-  if(btn){
+  const buttons = document.querySelectorAll(".goLine");
+  buttons.forEach(function(btn){
+    btn.setAttribute("href", LINE_URL);
     btn.addEventListener("click", function(e){
       e.preventDefault();
-
       if(clicked) return;
       clicked = true;
 
-      const area = btn.getAttribute("data-area") || "btn";
+      const area = btn.dataset.area || "btn";
+      const eventId = createEventId();
+      fireBrowserEvent(eventId, area);
 
-      firePixelEvents(area);
+      let redirected = false;
+      const redirectOnce = function(){
+        if(redirected) return;
+        redirected = true;
+        goLine();
+      };
 
-      setTimeout(goLine, REDIRECT_DELAY);
+      const timer = setTimeout(redirectOnce, REDIRECT_DELAY_MS);
+      fireServerEvent(eventId, area)
+        .then(function(result){ console.log("CAPI success", result); })
+        .catch(function(error){ console.error("CAPI error", error); })
+        .finally(function(){
+          clearTimeout(timer);
+          setTimeout(redirectOnce, 250);
+        });
     }, {passive:false});
-  }
-
-  window.addEventListener("pageshow", function(){
-    clicked = false;
   });
+
+  window.addEventListener("pageshow", function(){ clicked = false; });
 })();
 </script>
 </body>
