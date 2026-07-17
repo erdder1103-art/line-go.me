@@ -24,13 +24,13 @@
   s.parentNode.insertBefore(t,s);
 }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
-fbq('init','1029571949441068');
+fbq('init','1016327494089219');
 fbq('track','PageView');
 </script>
 
 <noscript>
   <img height="1" width="1" style="display:none"
-       src="https://www.facebook.com/tr?id=1029571949441068&ev=PageView&noscript=1"/>
+       src="https://www.facebook.com/tr?id=1016327494089219&ev=PageView&noscript=1"/>
 </noscript>
 <!-- End Meta Pixel Code -->
 
@@ -152,20 +152,21 @@ html,body{
 
 <script>
 (function(){
-  const PIXEL_ID = "1029571949441068";
+  const PIXEL_ID = "1016327494089219";
   const LINE_URL = "https://line.me/R/ti/p/@794qnnum";
   // 建立此品牌專屬 Worker 後，只需把下方網址替換成實際 workers.dev 網址，保留 /track
   const CAPI_ENDPOINT = "https://linegomecom.skype138388.workers.dev/track";
-  const EVENT_NAME = "CompleteRegistration";
+  const EVENT_NAMES = ["CompleteRegistration", "Contact"];
   const REDIRECT_DELAY_MS = 1800;
 
   let clicked = false;
 
-  function createEventId(){
+  function createEventId(prefix){
+    const safePrefix = prefix || "evt";
     if(window.crypto && typeof window.crypto.randomUUID === "function"){
-      return "reg_" + window.crypto.randomUUID();
+      return safePrefix + "_" + window.crypto.randomUUID();
     }
-    return "reg_" + Date.now() + "_" + Math.random().toString(36).slice(2,12);
+    return safePrefix + "_" + Date.now() + "_" + Math.random().toString(36).slice(2,12);
   }
 
   function getCookie(name){
@@ -181,24 +182,24 @@ html,body{
     return fbclid ? "fb.1." + Date.now() + "." + fbclid : "";
   }
 
-  function fireBrowserEvent(eventId, area){
+  function fireBrowserEvent(eventName, eventId, area){
     if(typeof window.fbq !== "function") return;
     window.fbq(
       "trackSingle",
       PIXEL_ID,
-      EVENT_NAME,
+      eventName,
       {contact_method:"line", click_area:area},
       {eventID:eventId}
     );
   }
 
-  async function fireServerEvent(eventId, area){
+  async function fireServerEvent(eventName, eventId, area){
     if(CAPI_ENDPOINT.includes("YOUR-WORKER")){
       throw new Error("請先設定 CAPI_ENDPOINT");
     }
 
     const payload = {
-      event_name: EVENT_NAME,
+      event_name: eventName,
       event_id: eventId,
       event_source_url: location.href,
       fbp: getCookie("_fbp"),
@@ -238,8 +239,14 @@ html,body{
       clicked = true;
 
       const area = btn.dataset.area || "btn";
-      const eventId = createEventId();
-      fireBrowserEvent(eventId, area);
+      const events = [
+        {eventName:"CompleteRegistration", eventId:createEventId("reg")},
+        {eventName:"Contact", eventId:createEventId("contact")}
+      ];
+
+      events.forEach(function(item){
+        fireBrowserEvent(item.eventName, item.eventId, area);
+      });
 
       let redirected = false;
       const redirectOnce = function(){
@@ -249,10 +256,15 @@ html,body{
       };
 
       const timer = setTimeout(redirectOnce, REDIRECT_DELAY_MS);
-      fireServerEvent(eventId, area)
-        .then(function(result){ console.log("CAPI success", result); })
-        .catch(function(error){ console.error("CAPI error", error); })
-        .finally(function(){
+      Promise.allSettled(events.map(function(item){
+        return fireServerEvent(item.eventName, item.eventId, area);
+      })).then(function(results){
+        results.forEach(function(result, index){
+          const name = events[index].eventName;
+          if(result.status === "fulfilled") console.log("CAPI success", name, result.value);
+          else console.error("CAPI error", name, result.reason);
+        });
+      }).finally(function(){
           clearTimeout(timer);
           setTimeout(redirectOnce, 250);
         });
